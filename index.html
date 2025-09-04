@@ -1790,6 +1790,14 @@ function loop(now){
 window.addEventListener('DOMContentLoaded', function(){
   try{
     if (typeof resize==='function') resize();
+    try{
+      // Early paint to prove canvas is live on devices that delay first draw
+      const __c = document.getElementById('game');
+      const __x = __c.getContext('2d');
+      __x.fillStyle='#0a0f1a'; __x.fillRect(0,0,__c.width,__c.height);
+      __x.fillStyle='#9cf'; __x.font=(16*(window.devicePixelRatio||1))+'px system-ui';
+      __x.fillText('Booting…', 24*(window.devicePixelRatio||1), 40*(window.devicePixelRatio||1));
+    }catch(_){}
     if (typeof boot==='function') boot();
     requestAnimationFrame(loop);
   }catch(e){
